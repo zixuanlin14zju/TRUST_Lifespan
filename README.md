@@ -1,58 +1,44 @@
-# TRUST Lifespan OEF Analysis Code
+# TRUST Lifespan: OEF analysis code
 
-This repository contains R scripts used for lifespan normative modeling of global OEF measured with TRUST MRI, vascular-risk analyses, disease-deviation analyses, clinical phenotype analyses, reproducibility plots, and sensitivity analyses.
+Analysis scripts for lifespan normative modeling of oxygen extraction fraction (OEF), clinical applications, reproducibility, and physiological sensitivity analyses. The release retains the original analysis sequence as **Step0–Step7**, adds the supplied supplementary analyses as **Step8–Step20**, and numbers the previous resampling scripts **Step21–Step26**. **Step27 adds paired site comparisons using the same traveling-subject input as Step7.**
 
-## Folder structure
+## Scope and release status
 
-```text
-R/        Analysis and plotting scripts
-data/     Input data tables
-outputs/  Generated results and figures
-```
+**This repository distributes code, not participant data.** No original or sampled study records, clinical workbooks, fitted models, historical plots, or R session histories are included. Data access remains subject to the contributing institutions' approvals and governance policies.
 
-## Data files (not uploaded yet, please contact the corresponding author)
-| File | Used by |
-|---|---|
-| `data/trust_lifespan_hc.csv` | Main normative modeling and sensitivity analyses |
-| `data/trust_lifespan_hc_stricterQC.csv` | Stricter-QC sensitivity analysis |
-| `data/trust_lifespan_hc_zscores.csv` | Disease-deviation analysis |
-| `data/trust_disease_patients.csv` | Disease-deviation analysis |
-| `data/trust_vascular_risk_zscores.csv` | Vascular-risk analysis |
-| `data/trust_tumor_phenotypes.xlsx` | Tumor clinical phenotype analysis |
-| `data/trust_neurodegenerative_phenotypes.xlsx` | APOE and cognitive phenotype analysis |
-| `data/trust_caffeine_followup.xlsx` | Caffeine Followup analysis |
-| `data/trust_traveling_subjects.xlsx` | Travelling study analysis |
+This is an audited source-code release. 
 
-## How to run
+## Analysis map
 
-Open R/RStudio with the repository root as the working directory. For example:
+| Step | Analysis | Inputs / dependency |
+|---|---|---|
+| 0 | Family and cubic spline-complexity comparison | Normative HC table |
+| 1 | Main BCTo lifespan model, centiles, variability, CV and z-scores | Normative HC table |
+| 2 | Vascular risk, individual factors, multivariable factors, categorical sensitivity | Approved HC z-score/vascular-risk table |
+| 3 | Disease deviation patterns | HC and patient tables; refits the supplied fixed-complexity BCTo model |
+| 4 | Tumor phenotype analyses | Processed tumor table with z-scores |
+| 5 | Exploratory cognition/APOE analyses | Processed neurodegenerative table with z-scores and APOE_Code |
+| 6 | Caffeine follow-up reproducibility | Paired-day OEF table |
+| 7 | Traveling OEF reproducibility | Original paired-site OEF table |
+| 8 | Four Hct normative sensitivity models | Precomputed HC and patient blood-sensitivity workbooks |
+| 9 | Hybrid pediatric/adult Ya sensitivity | Precomputed HC blood-sensitivity workbook |
+| 10 | Exploratory Hct sensitivity of clinical deviations | HC and patient blood-sensitivity workbooks |
+| 11 | Additional within-disease age regression | HC and patient tables |
+| 12 | Categorical VRS contrasts and report | HC z-score/vascular-risk table |
+| 13 | Community aging: VRS, CBF, OEF and CMRO2 | Community-aging paired-CBF workbook |
+| 14 | Pediatric OSA: CBF/CMRO2 and CBF-adjusted OEF | Pediatric OSA/control workbook |
+| 15 | Cognitive aging: diagnosis, cognition, CBF, VRS, CMRO2 | Cognitive-aging workbook |
+| 16 | Adults at Site 1 versus Sites 8/12 | HC workbook; common ages 23–33 years |
+| 17 | Early-life QC and mu-spline complexity | HC workbook with dR2 |
+| 18 | Direct venous R2 distribution by site | HC workbook with T2 in milliseconds |
+| 19 | Hct/Ya trajectory and derivative presentation | Outputs from Steps 8 and 9 |
+| 20 | Reference Hct/Ya assumption curves | Constants in the supplied plotting script; no participant data |
+| 21 | Age-balanced resampling | Normative HC table |
+| 22 | Bootstrap | Normative HC table |
+| 23 | Split-half stability | Normative HC table |
+| 24 | Leave-one-site-out stability | Normative HC table |
+| 25 | Stricter-QC sensitivity | Independently quality-controlled HC table |
+| 26 | Numerical concordance of sensitivity curves | Normative HC table and outputs from Steps 21–25 |
+| 27 | Paired OEF and optional R2 site comparisons | Same input as Step7 |
 
-```r
-setwd("path/to/TRUST_Lifespan_GitHub_Release")
-```
-
-Then run the scripts in the `R/` folder as needed. A typical order is:
-
-```r
-source("R/Step0_OEF_GAMLSS_CompareFamily.R")
-source("R/Step1_OEF_GAMLSS_zscore_NoRefSite_BCTo_Sex.R")
-source("R/Step2_OEF_GAMLSS_VRS.R")
-source("R/Step3_OEF_GAMLSS_Disease_Pattern_NoRefSite.R")
-...
-```
-
-Sensitivity analyses can be run independently:
-
-```r
-source("R/Sensitivity1_BalancedResampling_NoRefSite.R")
-source("R/Sensitivity2_Bootstrap.R")
-source("R/Sensitivity3_SplitinHalf_NoRefSite.R")
-source("R/Sensitivity4_LOSO.R")
-source("R/Sensitivity5_StricterQC.R")
-source("R/Sensitivity6_ComparewithMain.R")
-```
-
-## Notes
-
-- Paths are relative to the repository root.
-- Output files are written under `outputs/`.
+TRUST quantification is outside this R analysis repository and will be supplied separately in MATLAB. The R scripts start from quantified physiological variables. Site/vendor metadata and measured-versus-assumed Hct/Ya availability tables also require author-provided metadata.
