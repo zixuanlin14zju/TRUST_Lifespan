@@ -1,12 +1,10 @@
 # TRUST Lifespan: OEF analysis code
 
-Analysis scripts for lifespan normative modeling of oxygen extraction fraction (OEF), clinical applications, reproducibility, and physiological sensitivity analyses. The release retains the original analysis sequence as **Step0–Step7**, adds the supplied supplementary analyses as **Step8–Step20**, and numbers the previous resampling scripts **Step21–Step26**. **Step27 adds paired site comparisons using the same traveling-subject input as Step7.**
+Analysis scripts for lifespan normative modeling of oxygen extraction fraction (OEF), clinical applications, reproducibility, and physiological sensitivity analyses. The release retains the original analysis sequence as **Step0–Step7**, adds the supplied supplementary analyses as **Step8–Step20**, and numbers the previous resampling scripts **Step21–Step26**. 
 
 ## Scope and release status
 
 **This repository distributes code, not participant data.** No original or sampled study records, clinical workbooks, fitted models, historical plots, or R session histories are included. Data access remains subject to the contributing institutions' approvals and governance policies.
-
-This is an audited source-code release. 
 
 ## Analysis map
 
@@ -41,4 +39,4 @@ This is an audited source-code release.
 | 26 | Numerical concordance of sensitivity curves | Normative HC table and outputs from Steps 21–25 |
 | 27 | Paired OEF and optional R2 site comparisons | Same input as Step7 |
 
-TRUST quantification is outside this R analysis repository and will be supplied separately in MATLAB. The R scripts start from quantified physiological variables. Site/vendor metadata and measured-versus-assumed Hct/Ya availability tables also require author-provided metadata.
+TRUST quantification is outside this R analysis repository and will be supplied separately in MATLAB. The R scripts start from quantified physiological variables. 
